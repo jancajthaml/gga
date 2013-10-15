@@ -7,8 +7,8 @@ import java.util.Iterator;
 public final class StringUtils
 {
 
-    private StringUtils() {}
-
+    private StringUtils()
+    {}
 
     public static String repeat(char c, int n)
     {

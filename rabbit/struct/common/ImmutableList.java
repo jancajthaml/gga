@@ -11,6 +11,7 @@ import static rabbit.struct.util.Utils.arrayOf;
 @SuppressWarnings( {"unchecked"})
 public abstract class ImmutableList<T> extends AbstractList<T>
 {
+	
 	private final static ImmutableList<?> EMPTY_LIST = new ImmutableList<Object>()
 	{
         @Override public Object get(int index)							{ throw new IndexOutOfBoundsException("Empty list has no element with index " + index); }
@@ -22,19 +23,20 @@ public abstract class ImmutableList<T> extends AbstractList<T>
     {
         private final T element;
 
-        public SingleElementList(T element)
+        public SingleElementList( T element )
         { this.element = element; }
 
-        @Override public T get(int index)
+        @Override public T get( int index )
         {
-        	_in_array(index, 1);
+        	_in_array( index, 1 );
+        	
             return element;
         }
 
         @Override public int size()
         { return 1; }
 
-        @Override public ImmutableList<T> append(T element)
+        @Override public ImmutableList<T> append( T element )
         { return of(this.element, element); }
     }
     
@@ -43,22 +45,23 @@ public abstract class ImmutableList<T> extends AbstractList<T>
         private final T element0;
         private final T element1;
 
-        private TwoElementList(T element0, T element1)
+        private TwoElementList( T element0 , T element1 )
         {
             this.element0 = element0;
             this.element1 = element1;
         }
 
-        @Override public T get(int index)
+        @Override public T get( int index )
         {
-        	_in_array(index, 2);
+        	_in_array( index, 2 );
+        	
             return index == 0 ? element0 : element1;
         }
 
         @Override public int size()
         { return 2; }
 
-        @Override public ImmutableList<T> append(T element)
+        @Override public ImmutableList<T> append( T element )
         { return of(element0, element1, element); }
     }
     
@@ -66,11 +69,11 @@ public abstract class ImmutableList<T> extends AbstractList<T>
     {
         private final Object[] elements;
 
-        private RegularList(Object[] elements)
+        private RegularList( Object ... elements )
         { this.elements = elements; }
 
-        @Override public Object get(int index)
-        { return elements[index]; }
+        @Override public Object get( int index )
+        { return elements [ index ]; }
 
         @Override public int size()
         { return elements.length; }
@@ -79,7 +82,7 @@ public abstract class ImmutableList<T> extends AbstractList<T>
         {
             Object[] newElements = new Object[elements.length + 1];
             System.arraycopy(elements, 0, newElements, 0, elements.length);
-            newElements[elements.length] = element;
+            newElements [ elements.length ] = element;
             return new RegularList(newElements);
         }
     }
@@ -102,28 +105,28 @@ public abstract class ImmutableList<T> extends AbstractList<T>
     public static <T> ImmutableList<T> of(T a, T b)
     { return new TwoElementList<T>(a, b); }
 
-    public static <T> ImmutableList<T> of(T a, T b, T c)
+    public static <T> ImmutableList<T> of( T a , T b , T c )
     { return (ImmutableList<T>) new RegularList(new Object[] {a, b, c}); }
 
-    public static <T> ImmutableList<T> of(T ... elements)
+    public static <T> ImmutableList<T> of( T ... elements )
     {
-    	_not_null_argument(elements, "elements");
+    	_not_null_argument( elements, "elements" );
     	
-        return (ImmutableList<T>) new RegularList(elements.clone());
+        return (ImmutableList<T>) new RegularList( elements.clone() );
     }
 
-    public static <T> ImmutableList<T> of(T first, T ... more)
+    public static <T> ImmutableList<T> of( T first, T ... more )
     {
     	_not_null_argument(more, "more");
     	
         return (ImmutableList<T>) new RegularList(arrayOf(first, more.clone()));
     }
 
-    public static <T> ImmutableList<T> of(T[] first, T last)
+    public static <T> ImmutableList<T> of( T[] first, T last )
     {
     	_not_null_argument(first, "first");
     	
-        return (ImmutableList<T>) new RegularList(arrayOf(first.clone(), last));
+        return (ImmutableList<T>) new RegularList( arrayOf( first.clone() , last ) );
     }
 
     public static <T> ImmutableList<T> of(T first, ImmutableList<T> more)
@@ -141,7 +144,7 @@ public abstract class ImmutableList<T> extends AbstractList<T>
         }
     }
 
-    public static <T> ImmutableList<T> of(ImmutableList<T> first, T last)
+    public static <T> ImmutableList<T> of( ImmutableList<T> first, T last )
     {
     	_not_null_argument(first, "more");
     	

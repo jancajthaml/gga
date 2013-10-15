@@ -9,26 +9,20 @@ public class GenericMutableBinaryTreeNode<T extends MutableBinaryTreeNode<T>> ex
 
     public GenericMutableBinaryTreeNode()
     {
-        super.add(0, null);
-        super.add(1, null);
+        super . add ( 0 , null );
+        super . add ( 1 , null );
     }
 
-    public T left()
-    { return get().get(0); }
+    public T left  ()                { return get() . get ( 0 ); }
+    public T right ()                { return get() . get ( 1 ); }
+    
+    public void setLeft  ( T node )  { set( 0 , node ); }
+    public void setRight ( T node )  { set( 1 , node ); }
 
-    public void setLeft(T node)
-    { set(0, node); }
-
-    public T right()
-    { return get().get(1); }
-
-    public void setRight(T node)
-    { set(1, node); }
-
-    @Override public void add(int index, T child)
-    { throw new UnsupportedOperationException(); }
-
-    @Override public T remove(int index)
-    { throw new UnsupportedOperationException(); }
+    
+    //------------------------------------------------------------------------------------------------//
+    
+    @Override public void add ( int index , T child )  { throw new UnsupportedOperationException(); }
+    @Override public T remove ( int index           )  { throw new UnsupportedOperationException(); }
 
 }

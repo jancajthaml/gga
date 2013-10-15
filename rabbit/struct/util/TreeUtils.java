@@ -18,7 +18,7 @@ public final class TreeUtils
         parent.add(parent.get().size(), child);
     }
 
-    public static <T extends MutableTreeNode<T>> void remove(T parent, T child)
+    public static <T extends MutableTreeNode<T>> void unlink(T parent, T child)
     {
     	_not_null_argument(parent, "parent");
     	

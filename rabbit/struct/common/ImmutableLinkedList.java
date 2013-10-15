@@ -13,10 +13,10 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
 	{
         private final ListIterator<Object> iterator = new IllIterator<Object>(this);
 
-        @Override public Object head()									{ throw new UnsupportedOperationException("head of empty list"); }
-        @Override public ImmutableLinkedList<Object> tail()				{ throw new UnsupportedOperationException("tail of empty list"); }
-        @Override public Object last()									{ throw new UnsupportedOperationException("last of empty list"); }
-        @Override public ListIterator<Object> listIterator(int index)	{ return iterator; }
+        @Override public Object head()                                   { throw new UnsupportedOperationException("head of empty list"); }
+        @Override public ImmutableLinkedList<Object> tail()              { throw new UnsupportedOperationException("tail of empty list"); }
+        @Override public Object last()                                   { throw new UnsupportedOperationException("last of empty list"); }
+        @Override public ListIterator<Object> listIterator( int index )  { return iterator; }
     };
 
     @SuppressWarnings({"unchecked"}) public static <T> ImmutableLinkedList<T> nil()
@@ -31,7 +31,7 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
         tail = null;
     }
 
-    public ImmutableLinkedList(T head, ImmutableLinkedList<T> tail)
+    public ImmutableLinkedList( T head, ImmutableLinkedList<T> tail )
     {
     	_not_null_argument(tail, "tail");
     	
@@ -54,41 +54,41 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
         return cursor.head();
     }
 
-    public ImmutableLinkedList<T> prepend(T object)
-    { return new ImmutableLinkedList<T>(object, this); }
+    public ImmutableLinkedList<T> prepend( T element )
+    { return new ImmutableLinkedList<T>( element , this ); }
 
     public ImmutableLinkedList<T> reverse()
     {
         if (tail == NIL) return this;
         
-        ImmutableLinkedList<T> reversed = nil();
-        ImmutableLinkedList<T> next = this;
+        ImmutableLinkedList<T> reversed  =  nil();
+        ImmutableLinkedList<T> next      =  this;
         
         while (next != NIL)
         {
-            reversed = reversed.prepend(next.head);
-            next = next.tail;
+            reversed  =  reversed . prepend ( next.head );
+            next      =  next     . tail;
         }
         
         return reversed;
     }
 
-    public static <T> boolean equal(ImmutableLinkedList<T> a, ImmutableLinkedList<T> b)
+    public static <T> boolean equal( ImmutableLinkedList<T> a , ImmutableLinkedList<T> b )
     {
-    	_not_null_argument(a, "a");
-    	_not_null_argument(b, "b");
+    	_not_null_argument( a, "a" );
+    	_not_null_argument( b, "b" );
     	
-        return Utils.equal(a.head, b.head) && equal(a.tail, b.tail);
+        return Utils.equal( a.head , b.head ) && equal( a.tail , b.tail );
     }
 
-    public static int hashCode(ImmutableLinkedList<?> list)
+    public static int hashCode( ImmutableLinkedList<?> list )
     {
-    	_not_null_argument(list, "list");
+    	_not_null_argument( list, "list" );
     	
         return list.isEmpty() ? 0 : 31 * list.head.hashCode() + hashCode(list.tail);
     }
 
-    @Override public ListIterator<T> listIterator(int index)
+    @Override public ListIterator<T> listIterator( int index )
     {
         ListIterator<T> iterator = new IllIterator<T>(this);
     
@@ -105,8 +105,8 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
 
     @Override public int size()
     {
-        ImmutableLinkedList<T> cursor = this;
-        int size = 0;
+        ImmutableLinkedList<T> cursor  =  this;
+        int size                       =  0;
     
         while (!cursor.isEmpty())
         {
@@ -119,52 +119,45 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
 
     private static class IllIterator<T> implements ListIterator<T>
     {
-        private final	ImmutableLinkedList<T> start;
-        private			ImmutableLinkedList<T> current;
-        private			int nextIndex = 0;
+        private final  ImmutableLinkedList<T>  start;
+        private        ImmutableLinkedList<T>  current;
+        private        int                     nextIndex = 0;
 
-        private IllIterator(ImmutableLinkedList<T> start)
+        private IllIterator( ImmutableLinkedList<T> start )
         {
-            this.start		= start;
-            this.current	= start;
+            this.start    =  start;
+            this.current  =  start;
         }
-
-        public boolean hasNext()
-        { return current != NIL; }
 
         public T next()
         {
             ImmutableLinkedList<T> next	= current;
-            current						= current.tail;
+            current						= current . tail;
             nextIndex++;
             return next.head;
         }
 
-        public boolean hasPrevious()
-        { return current != start; }
 
         public T previous()
         {
-            ImmutableLinkedList<T> previous = start;
-            while (previous.tail != current) previous = previous.tail;
+            ImmutableLinkedList<T>            previous  =  start;
+            while (previous.tail != current)  previous  =  previous . tail;
+            
             nextIndex--;
+            
             return previous.head;
         }
 
-        public int nextIndex()
-        { return nextIndex; }
+        public boolean hasPrevious()  { return current != start; }
+        public boolean hasNext()      { return current != NIL;   }
+        public int nextIndex()        { return nextIndex;        }
+        public int previousIndex()    { return nextIndex - 1;    }
 
-        public int previousIndex()
-        { return nextIndex - 1; }
-
-        public void remove()
-        { throw new UnsupportedOperationException(); }
-
-        public void set(T t)
-        { throw new UnsupportedOperationException(); }
-
-        public void add(T t)
-        { throw new UnsupportedOperationException(); }
+        //------------------------------------------------------------------------------------------------//
+        
+        public void remove (     )  { throw new UnsupportedOperationException(); }
+        public void set    ( T t )  { throw new UnsupportedOperationException(); }
+        public void add    ( T t )  { throw new UnsupportedOperationException(); }
     }
 
 }

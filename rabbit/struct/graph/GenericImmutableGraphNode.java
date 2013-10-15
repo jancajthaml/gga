@@ -11,7 +11,7 @@ public class GenericImmutableGraphNode<T extends GraphNode<T>> implements GraphN
     private final List<T> children;
 
     public GenericImmutableGraphNode()
-    { this(null); }
+    { this.children = ImmutableList.<T>of(); }
 
     public GenericImmutableGraphNode(List<T> children)
     { this.children = children == null ? ImmutableList.<T>of() : children instanceof ImmutableList ? children : children instanceof ImmutableLinkedList ? children : ImmutableList.copy(children); }
