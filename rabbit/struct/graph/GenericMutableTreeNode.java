@@ -15,11 +15,8 @@ public class GenericMutableTreeNode<T extends MutableTreeNode<T>> implements Mut
     private final  List<T>  childrenView  =  Collections.unmodifiableList(children);
     private        T        parent;
 
-    public T parent()
-    { return parent; }
-
-    public List<T> get()
-    { return childrenView; }
+    public T parent()     { return parent;       }
+    public List<T> get()  { return childrenView; }
 
     public void add( int index , T child )
     {
@@ -27,8 +24,8 @@ public class GenericMutableTreeNode<T extends MutableTreeNode<T>> implements Mut
 
         if (child != null)
         {
-            if (child.parent() == this) return;
-            if (child.parent() != null) unlink( child.parent(), child );
+            if (child.parent() == this)  return;
+            if (child.parent() != null)  unlink( child.parent(), child );
         }
 
         children . add ( index , child );

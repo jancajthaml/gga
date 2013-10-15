@@ -26,7 +26,7 @@ public class GenericImmutableTreeNode<T extends TreeNode<T>> extends GenericImmu
         List<T>  children  =  get();
         int      size      =  children . size();
 
-        for (int i = 0; i < size; i++)
+        for( int i = 0 ; i<size ; i++ )
             ((GenericImmutableTreeNode<T>) children . get( i )) . parent = (T) this;
     }
 

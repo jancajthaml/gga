@@ -9,24 +9,25 @@ public final class TreeUtils
 
     private TreeUtils() {}
 
-    public static <T extends TreeNode<T>> T root(T node)
-    { return (node == null)?null:((node.parent() != null)?root(node.parent()):node); }
+    public static <T extends TreeNode<T>> T root( T node )
+    { return (node == null) ? null : ((node.parent() != null) ? root( node.parent() ) : node); }
 
-    public static <T extends MutableTreeNode<T>> void addChild(T parent, T child)
+    public static <T extends MutableTreeNode<T>> void addChild( T parent, T child )
     {
-    	_not_null_argument(parent, "parent");
-        parent.add(parent.get().size(), child);
+    	_not_null_argument( parent, "parent" );
+
+        parent . add( parent.get().size() , child );
     }
 
-    public static <T extends MutableTreeNode<T>> void unlink(T parent, T child)
+    public static <T extends MutableTreeNode<T>> void unlink( T parent, T child )
     {
-    	_not_null_argument(parent, "parent");
+    	_not_null_argument( parent, "parent" );
     	
-        int index = parent.get().indexOf(child);
+        int index = parent . get() . indexOf( child );
         
-        _in_array(index, parent.get().size());
+        _in_array( index, parent.get().size() );
         
-        parent.remove(index);
+        parent . remove( index );
     }
 
 }

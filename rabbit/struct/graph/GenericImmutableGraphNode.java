@@ -13,8 +13,8 @@ public class GenericImmutableGraphNode<T extends GraphNode<T>> implements GraphN
     public GenericImmutableGraphNode()
     { this.children = ImmutableList.<T>of(); }
 
-    public GenericImmutableGraphNode(List<T> children)
-    { this.children = children == null ? ImmutableList.<T>of() : children instanceof ImmutableList ? children : children instanceof ImmutableLinkedList ? children : ImmutableList.copy(children); }
+    public GenericImmutableGraphNode( List<T> children )
+    { this.children = children == null ? ImmutableList.<T>of() : children instanceof ImmutableList ? children : children instanceof ImmutableLinkedList ? children : ImmutableList . copy( children ); }
 
     public List<T> get()
     { return children; }

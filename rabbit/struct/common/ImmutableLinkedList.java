@@ -9,34 +9,35 @@ import static rabbit.logic.Preconditions.*;
 
 public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
 {
+
 	private static final ImmutableLinkedList<Object> NIL = new ImmutableLinkedList<Object>()
 	{
         private final ListIterator<Object> iterator = new IllIterator<Object>(this);
 
-        @Override public Object head()                                   { throw new UnsupportedOperationException("head of empty list"); }
-        @Override public ImmutableLinkedList<Object> tail()              { throw new UnsupportedOperationException("tail of empty list"); }
-        @Override public Object last()                                   { throw new UnsupportedOperationException("last of empty list"); }
-        @Override public ListIterator<Object> listIterator( int index )  { return iterator; }
+        @Override public Object                       head         (           )  { throw new UnsupportedOperationException("head of empty list"); }
+        @Override public ImmutableLinkedList<Object>  tail         (           )  { throw new UnsupportedOperationException("tail of empty list"); }
+        @Override public Object                       last         (           )  { throw new UnsupportedOperationException("last of empty list"); }
+        @Override public ListIterator<Object>         listIterator ( int index )  { return iterator;                                               }
     };
 
     @SuppressWarnings({"unchecked"}) public static <T> ImmutableLinkedList<T> nil()
     { return (ImmutableLinkedList<T>) NIL; }
 
-    private final T head;
-    private final ImmutableLinkedList<T> tail;
+    private  final  T                       head;
+    private  final  ImmutableLinkedList<T>  tail;
 
     private ImmutableLinkedList()
     {
-        head = null;
-        tail = null;
+        head  =  null;
+        tail  =  null;
     }
 
     public ImmutableLinkedList( T head, ImmutableLinkedList<T> tail )
     {
     	_not_null_argument(tail, "tail");
     	
-        this.head = head;
-        this.tail = tail;
+        this . head  =  head;
+        this . tail  =  tail;
     }
 
     public T head()
@@ -92,9 +93,9 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
     {
         ListIterator<T> iterator = new IllIterator<T>(this);
     
-        while (index-- > 0)
+        while( index --> 0 )
         {
-            if (!iterator.hasNext()) throw new IndexOutOfBoundsException();
+            if( !iterator.hasNext() ) throw new IndexOutOfBoundsException();
             iterator.next();
         }
         return iterator;
@@ -119,9 +120,9 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
 
     private static class IllIterator<T> implements ListIterator<T>
     {
-        private final  ImmutableLinkedList<T>  start;
-        private        ImmutableLinkedList<T>  current;
-        private        int                     nextIndex = 0;
+        private  final  ImmutableLinkedList<T>  start;
+        private         ImmutableLinkedList<T>  current;
+        private         int                     nextIndex = 0;
 
         private IllIterator( ImmutableLinkedList<T> start )
         {
@@ -148,10 +149,10 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
             return previous.head;
         }
 
-        public boolean hasPrevious()  { return current != start; }
-        public boolean hasNext()      { return current != NIL;   }
-        public int nextIndex()        { return nextIndex;        }
-        public int previousIndex()    { return nextIndex - 1;    }
+        public boolean hasPrevious ()  { return current != start; }
+        public boolean hasNext     ()  { return current != NIL;   }
+        public int nextIndex       ()  { return nextIndex;        }
+        public int previousIndex   ()  { return nextIndex - 1;    }
 
         //------------------------------------------------------------------------------------------------//
         
