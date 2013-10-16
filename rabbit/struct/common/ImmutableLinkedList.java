@@ -32,9 +32,9 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
         tail  =  null;
     }
 
-    public ImmutableLinkedList( T head, ImmutableLinkedList<T> tail )
+    public ImmutableLinkedList( T head , ImmutableLinkedList<T> tail )
     {
-    	_not_null_argument(tail, "tail");
+        _not_null_argument( tail, "tail" );
     	
         this . head  =  head;
         this . tail  =  tail;
@@ -121,8 +121,8 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
     private static class IllIterator<T> implements ListIterator<T>
     {
         private  final  ImmutableLinkedList<T>  start;
-        private         ImmutableLinkedList<T>  current;
-        private         int                     nextIndex = 0;
+        private         ImmutableLinkedList<T>  current    =  null;
+        private         int                     nextIndex  =  0;
 
         private IllIterator( ImmutableLinkedList<T> start )
         {
@@ -137,7 +137,6 @@ public class ImmutableLinkedList<T> extends AbstractSequentialList<T>
             nextIndex++;
             return next.head;
         }
-
 
         public T previous()
         {

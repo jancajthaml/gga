@@ -10,43 +10,45 @@ import rabbit.struct.util.StringUtils;
 
 public final class Predicates
 {
+	
+    private Predicates() {}
 
-	private static final Predicate<?> NULL     =  new Null();
+    private static final Predicate<?> NULL     =  new Null();
 	private static final Predicate<?> NOTNULL  =  new NotNull();
 	private static final Predicate<?> TRUE     =  new True();
 	private static final Predicate<?> FALSE    =  new False();
 
-    private Predicates() {}
+    //---[ library ] -----
 
-    @SuppressWarnings("unchecked") public static <T> Predicate<T> _true     ()  { return (Predicate<T>) TRUE;     }
-    @SuppressWarnings("unchecked") public static <T> Predicate<T> _false    ()  { return (Predicate<T>) FALSE;    }
-    @SuppressWarnings("unchecked") public static <T> Predicate<T> _null     ()  { return (Predicate<T>) NULL;     }
-    @SuppressWarnings("unchecked") public static <T> Predicate<T> _not_null ()  { return (Predicate<T>) NOTNULL;  }
+    @SuppressWarnings("unchecked") public static <T> Predicate<T> _true     ()  {  return (Predicate<T>) TRUE;     }
+    @SuppressWarnings("unchecked") public static <T> Predicate<T> _false    ()  {  return (Predicate<T>) FALSE;    }
+    @SuppressWarnings("unchecked") public static <T> Predicate<T> _null     ()  {  return (Predicate<T>) NULL;     }
+    @SuppressWarnings("unchecked") public static <T> Predicate<T> _not_null ()  {  return (Predicate<T>) NOTNULL;  }
 
-    public static <T> Predicate<T> _not(Predicate<T> predicate)
+    public static <T> Predicate<T> _not( Predicate<T> predicate )
     { return new Not<T>(predicate); }
 
-    public static <T> Predicate<T> _and(Collection<? extends Predicate<? super T>> set)
+    public static <T> Predicate<T> _and( Collection<? extends Predicate<? super T>> set )
     { return new And<T>(set); }
 
-    public static <T> Predicate<T> _and(Predicate<? super T> ... set)
+    public static <T> Predicate<T> _and( Predicate<? super T> ... set )
     { return new And<T>(ImmutableList.of(set)); }
 
-    public static <T> Predicate<T> _and(Predicate<? super T> left, Predicate<? super T> right)
+    public static <T> Predicate<T> _and( Predicate<? super T> left, Predicate<? super T> right )
     {
     	_not_null_argument( left  , "left"  );
     	_not_null_argument( right , "right" );
     	
-        return new And<T>(ImmutableList.<Predicate<? super T>>of(left, right));
+        return new And<T>( ImmutableList.<Predicate<? super T>>of( left, right ) );
     }
 
-    public static <T> Predicate<T> _or(Collection<? extends Predicate<? super T>> set)
+    public static <T> Predicate<T> _or( Collection<? extends Predicate<? super T>> set )
     { return new Or<T>(set); }
 
-    public static <T> Predicate<T> _or(Predicate<? super T> ... set)
+    public static <T> Predicate<T> _or( Predicate<? super T> ... set )
     { return new Or<T>(ImmutableList.of(set)); }
 
-    public static <T> Predicate<T> _or(Predicate<? super T> left, Predicate<? super T> right)
+    public static <T> Predicate<T> _or( Predicate<? super T> left, Predicate<? super T> right )
     {
     	_not_null_argument( left  , "left"  );
     	_not_null_argument( right , "right" );
@@ -57,11 +59,11 @@ public final class Predicates
     public static <T> Predicate<T> _equal( T other )
     { return (other == null) ? Predicates.<T>_null() : new EqualTo<T>(other); }
 
-    public static Predicate<Object> _instance(Class<?> clazz)
-    { return new InstanceOf(clazz); }
+    public static Predicate<Object> _instance( Class<?> clazz )
+    { return new InstanceOf( clazz ); }
 
-    public static <T> Predicate<T> _in(Collection<? extends T> target)
-    { return new In<T>(target); }
+    public static <T> Predicate<T> _in( Collection<? extends T> target )
+    { return new In<T>( target ); }
 
     //--- [ nested ] ---------------------------------------------
     
@@ -100,11 +102,8 @@ public final class Predicates
             this.predicate = predicate;
         }
 
-        public boolean eval(T t)
-        { return !predicate.eval(t); }
-
-        public String toString()
-        { return "Not(" + predicate.toString() + ")"; }
+        public boolean eval(T t)  { return !predicate.eval(t);                  }
+        public String toString()  { return "Not(" + predicate.toString() + ")"; }
     }
 
     private static class And<T> implements Predicate<T>
@@ -161,29 +160,26 @@ public final class Predicates
             this.clazz = clazz;
         }
 
-        public boolean eval(Object o)
-        { return clazz.isInstance(o); }
-
-        @Override public String toString()
-        { return "InstanceOf(" + clazz.getName() + ")"; }
+        public boolean eval              ( Object o ) { return clazz.isInstance( o );                 }
+        @Override public String toString (          ) { return "InstanceOf(" + clazz.getName() + ")"; }
     }
 
     private static class In<T> implements Predicate<T>
     {
         private final Collection<?> target;
 
-        private In(Collection<?> target)
+        private In( Collection<?> target )
         {
         	_not_null_argument(target, "target");
         	
             this.target = target;
         }
 
-        public boolean eval(T t)
+        public boolean eval( T t )
         {
-            try { return target.contains(t); }
-            catch (NullPointerException e) { return false; }
-            catch (ClassCastException e) { return false; }
+            try                             { return target.contains( t ); }
+            catch( NullPointerException e ) { return false;                }
+            catch( ClassCastException e   ) { return false;                }
         }
 
         @Override public String toString()

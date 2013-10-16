@@ -30,7 +30,7 @@ public abstract class ImmutableList<T> extends AbstractList<T>
 
         @Override public T get( int index )
         {
-        	_in_array( index, 1 );
+            _in_array( index, 1 );
         	
             return element;
         }
@@ -52,7 +52,7 @@ public abstract class ImmutableList<T> extends AbstractList<T>
 
         @Override public T get( int index )
         {
-        	_in_array( index, 2 );
+            _in_array( index, 2 );
         	
             return index == 0 ? element0 : element1;
         }
@@ -84,9 +84,9 @@ public abstract class ImmutableList<T> extends AbstractList<T>
         }
     }
 
-    public static <T> ImmutableList<T> copy(List<T> other)
+    public static <T> ImmutableList<T> copy( List<T> other )
     {
-    	_not_null_argument(other, "other");
+        _not_null_argument( other, "other" );
     	
         return (ImmutableList<T>) (other instanceof ImmutableList ? other : new RegularList( other.toArray() ));
     }
@@ -105,21 +105,21 @@ public abstract class ImmutableList<T> extends AbstractList<T>
 
     public static <T> ImmutableList<T> of( T ... elements )
     {
-    	_not_null_argument( elements, "elements" );
+       _not_null_argument( elements, "elements" );
     	
         return (ImmutableList<T>) new RegularList( elements.clone() );
     }
 
     public static <T> ImmutableList<T> of( T first, T ... more )
     {
-    	_not_null_argument( more, "more" );
+       _not_null_argument( more, "more" );
     	
         return (ImmutableList<T>) new RegularList( arrayOf( first, more.clone() ) );
     }
 
     public static <T> ImmutableList<T> of( T[] first, T last )
     {
-    	_not_null_argument( first, "first" );
+        _not_null_argument( first, "first" );
     	
         return (ImmutableList<T>) new RegularList( arrayOf( first.clone() , last ) );
     }
@@ -133,7 +133,7 @@ public abstract class ImmutableList<T> extends AbstractList<T>
         else if ( more instanceof RegularList       )  return (ImmutableList<T>) new RegularList(arrayOf(first, ((RegularList) more).elements));
         else
         {
-        	_is_true_state(more == EMPTY_LIST);
+        	_is_true_state( more == EMPTY_LIST );
         	
             return of(first);
         }
@@ -141,14 +141,14 @@ public abstract class ImmutableList<T> extends AbstractList<T>
 
     public static <T> ImmutableList<T> of( ImmutableList<T> first, T last )
     {
-    	_not_null_argument( first, "more" );
+        _not_null_argument( first, "more" );
     	
              if ( first instanceof SingleElementList )  return of((T) ((SingleElementList<?>) first).element, last);
         else if ( first instanceof TwoElementList    )  return (ImmutableList<T>) new RegularList(new Object[] {((TwoElementList<?>) first).element0, ((TwoElementList<?>) first).element1, last});
         else if ( first instanceof RegularList       )  return (ImmutableList<T>) new RegularList(arrayOf(((RegularList) first).elements, last));
         else
         {
-        	_is_true_state(first == EMPTY_LIST);
+            _is_true_state( first == EMPTY_LIST );
         	
             return of(last);
         }

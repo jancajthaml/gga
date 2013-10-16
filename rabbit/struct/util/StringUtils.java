@@ -19,10 +19,10 @@ public final class StringUtils
         return String.valueOf(array);
     }
 
-    public static String join(Iterable<?> iterable, String separator)
+    public static String join( Iterable<?> iterable , String separator )
     { return iterable == null ? null : join(iterable.iterator(), separator); }
     
-    public static String join( Iterator<?> iterator, String separator )
+    public static String join( Iterator<?> iterator , String separator )
     {
         if( iterator == null      )  return null;
         if( !iterator . hasNext() )  return "";
@@ -122,6 +122,5 @@ public final class StringUtils
 
         return (str.length() <= (pos + len)) ? str.substring( pos ) : str.substring( pos, pos + len );
     }
-    
 
 }
