@@ -1,4 +1,4 @@
-package rabbit.struct.common;
+package rabbit.struct.util;
 
 public interface Formatter<T>
 {

@@ -3,7 +3,6 @@ package rabbit.struct.util;
 import static rabbit.logic.Preconditions.*;
 import rabbit.logic.predicate.Predicate;
 import rabbit.logic.predicate.Predicates;
-import rabbit.struct.common.Formatter;
 import rabbit.struct.graph.scheme.GraphNode;
 
 import java.util.Collection;

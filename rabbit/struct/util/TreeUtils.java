@@ -1,6 +1,7 @@
 package rabbit.struct.util;
 
 import static rabbit.logic.Preconditions.*;
+import rabbit.struct.graph.scheme.MutableBinaryTreeNode;
 import rabbit.struct.graph.scheme.MutableTreeNode;
 import rabbit.struct.graph.scheme.TreeNode;
 
@@ -28,6 +29,21 @@ public final class TreeUtils
         _in_array( index, parent.get().size() );
         
         parent . remove( index );
+    }
+    
+
+    public static <N extends MutableBinaryTreeNode<N>> N toLeftAssociativity( N node )
+    {
+    	_not_null_argument( node, "node" );
+    	
+        N right = node . right();
+        
+        if (right == null) return node;
+
+        node  . right ( right . left() );
+        right . left  ( node           );
+
+        return right;
     }
 
 }

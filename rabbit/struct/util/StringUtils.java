@@ -122,5 +122,6 @@ public final class StringUtils
 
         return (str.length() <= (pos + len)) ? str.substring( pos ) : str.substring( pos, pos + len );
     }
+    
 
 }

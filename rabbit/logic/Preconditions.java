@@ -4,6 +4,12 @@ public final class Preconditions
 {
     private Preconditions() {}
 
+    public static void ensure(boolean condition, String errorMessageFormat, Object ... errorMessageArgs)
+    { if (!condition) throw new IllegalStateException(String.format(errorMessageFormat, errorMessageArgs)); }
+
+    public static void ensure(boolean condition, String errorMessage)
+    { if (!condition) throw new IllegalArgumentException(errorMessage); }
+
     public static void _is_true_argument(boolean expression)
     { if (!expression) throw new IllegalArgumentException(); }
 
