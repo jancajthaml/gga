@@ -3,18 +3,12 @@ package rabbit.struct.common;
 public class IntegerStack
 {
 
-    public static class UnderflowException extends RuntimeException
-    {
-		private static final long serialVersionUID = 7393735626683631233L;
-		public UnderflowException(String message) { super(message); }
-	}
-
     private  static  final  int    INITIAL_CAPACITY  =  16;
     private                 int[]  array             =  null;
     private                 int    top               =  -1;
 
     public IntegerStack()
-    { array = new int[INITIAL_CAPACITY]; }
+    { array = new int [ INITIAL_CAPACITY ]; }
 
     public boolean isEmpty()
     { return top == -1; }
@@ -37,29 +31,37 @@ public class IntegerStack
 
     public int peek()
     {
-        if (isEmpty()) throw new UnderflowException("IntArrayStack peek");
+        if( isEmpty() ) throw new UnderflowException("IntArrayStack peek");
         return array [ top ];
     }
 
     public int pop()
     {
-        if (isEmpty()) throw new UnderflowException("IntArrayStack pop");
+        if( isEmpty() ) throw new UnderflowException("IntArrayStack pop");
         return array [ top-- ];
     }
 
-    public void push(int x)
+    public void push( int value )
     {
-        if (top == array.length - 1) expandCapacity();
-        array [ ++top ] = x;
-    }
+        if( top == array.length - 1 )
+        {
+        	int[] arr  =  new int [ array.length << 1 ];
 
-    private void expandCapacity()
+            System.arraycopy( array, 0, arr, 0, array.length );
+
+            array      =  arr;
+        }
+        array [ ++top ] = value;
+    }
+    
+    
+    //---[ nested ]-----------------
+    
+
+    private static class UnderflowException extends RuntimeException
     {
-        int[] arr = new int [ array.length << 1 ];
-
-        System.arraycopy( array, 0, arr, 0, array.length );
-
-        array = arr;
-    }
+        private static final long serialVersionUID = 7393735626683631233L;
+        public UnderflowException( String message ) { super(message); }
+	}
 
 }
