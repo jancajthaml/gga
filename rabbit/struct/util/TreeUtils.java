@@ -8,19 +8,20 @@ import rabbit.struct.graph.scheme.TreeNode;
 public final class TreeUtils
 {
 
+	//Library class
     private TreeUtils() {}
 
     public static <T extends TreeNode<T>> T root( T node )
     { return (node == null) ? null : ((node.parent() != null) ? root( node.parent() ) : node); }
 
-    public static <T extends MutableTreeNode<T>> void addChild( T parent, T child )
+    public static <T extends MutableTreeNode<T>> void addChild( T parent , T child )
     {
     	_not_null_argument( parent, "parent" );
 
         parent . add( parent.get().size() , child );
     }
 
-    public static <T extends MutableTreeNode<T>> void unlink( T parent, T child )
+    public static <T extends MutableTreeNode<T>> void unlink( T parent , T child )
     {
     	_not_null_argument( parent, "parent" );
     	
@@ -38,7 +39,7 @@ public final class TreeUtils
     	
         N right = node . right();
         
-        if (right == null) return node;
+        if( right == null ) return node;
 
         node  . right ( right . left() );
         right . left  ( node           );

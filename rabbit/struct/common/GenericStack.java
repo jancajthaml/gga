@@ -2,7 +2,6 @@ package rabbit.struct.common;
 
 import static rabbit.logic.Preconditions.ensure;
 import static rabbit.logic.Preconditions._is_true_argument;
-
 import java.util.Iterator;
 
 public class GenericStack<V> implements Iterable<V>
@@ -22,20 +21,23 @@ public class GenericStack<V> implements Iterable<V>
 
     public int size()
     {
-        Element  cursor  =  head;
-        int      size    =  0;
+        Element  cursor  =  head   ;
+        int      size    =  0      ;
     
         while( cursor != null )
         {
-            size++;
-            cursor = cursor.tail;
+            size++                 ;
+            cursor = cursor . tail ;
         }
 
         return size;
     }
 
     public void clear()
-    { head = null; }
+    {
+    	head = null;
+    	//System.gc();
+    }
 
     public Object takeSnapshot()
     { return head; }
@@ -52,21 +54,21 @@ public class GenericStack<V> implements Iterable<V>
     public void push( int down , V value )
     { head = push( down, value, head ); }
 
-    private static Element push( int down, Object value, Element head )
+    private static Element push( int down , Object value , Element head )
     {
-        if( down == 0 ) return new Element(value, head);
+        if( down==0 ) return new Element(value, head);
         
         _is_true_argument( head != null , "Cannot push beyond the bottom of the stack" );
         
-        if( down > 0  ) return new Element(head.value, push(down - 1, value, head.tail));
+        if( down>0  ) return new Element( head.value , push( down-1 , value , head.tail ) );
         
         throw new IllegalArgumentException("Argument 'down' must not be negative");
     }
 
-    public void pushAll( V firstValue , V ... moreValues )
+    public void pushAll( V first , V ... more )
     {
-        push( firstValue );
-        for( V value : moreValues ) push( value );
+                              push( first ) ;
+        for( V value : more ) push( value ) ;
     }
 
     public void pushAll( Iterable<V> values )
@@ -80,9 +82,10 @@ public class GenericStack<V> implements Iterable<V>
 
     public V pop( int down )
     {
-        head      = pop(down, head);
-        V result  = temp;
-        temp      = null;
+           head    =  pop( down , head ) ;
+        V  result  =  temp               ;
+           temp    =  null               ;
+           
         return result;
     }
 
@@ -92,8 +95,8 @@ public class GenericStack<V> implements Iterable<V>
     	_is_true_argument( head != null, "Cannot pop from beyond the bottom of the stack" );
         if( down == 0 )
         {
-            temp  =  (V) head . value;
-            return       head . tail;
+            temp  =  (V) head . value ;
+            return       head . tail  ;
         }
         if( down > 0 ) return new Element( head.value, pop(down - 1, head.tail) );
         throw new IllegalArgumentException("Argument 'down' must not be negative");
@@ -110,8 +113,8 @@ public class GenericStack<V> implements Iterable<V>
     {
     	_is_true_argument(head != null, "Cannot peek beyond the bottom of the stack");
 
-        if( down == 0 )  return head.value;
-        if( down > 0  )  return peek( down - 1, head.tail );
+        if( down==0 )  return head.value                 ;
+        if( down>0  )  return peek( down-1 , head.tail ) ;
 
         throw new IllegalArgumentException("Argument 'down' must not be negative");
     }

@@ -4,6 +4,7 @@ import static rabbit.logic.Preconditions.*;
 import rabbit.logic.predicate.Predicate;
 import rabbit.logic.predicate.Predicates;
 import rabbit.struct.graph.scheme.GraphNode;
+import rabbit.util.Formatter;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,10 +38,11 @@ public final class GraphUtils
         return collection;
     }
 
-    public static <T extends GraphNode<T>> String printTree( T node, Formatter<T> formatter )
+    public static <T extends GraphNode<T>> String printTree( T node , Formatter<T> formatter )
     {
-        _not_null_argument(formatter, "formatter");
-        return printTree(node, formatter, Predicates.<T>_true(), Predicates.<T>_true());
+        _not_null_argument( formatter , "formatter" );
+        
+        return printTree( node , formatter , Predicates.<T>_true() , Predicates.<T>_true() );
     }
 
     public static <T extends GraphNode<T>> String printTree( T node, Formatter<T> formatter, Predicate<T> nodeFilter, Predicate<T> subTreeFilter )
@@ -61,14 +63,14 @@ public final class GraphUtils
     		{
                 sb
                   . append( indent )
-                  . append( line   )
-                  . append( "\n"   );
+                  . append(  line  )
+                  . append(  "\n"  );
 
                 indent += "  ";
             }
         }
         if( t_filter . eval( node ) ) for( T sub : node.get() )
-        	printTree( sub, formatter, indent, sb, n_filter, t_filter );
+        	printTree( sub , formatter , indent , sb , n_filter , t_filter );
 
         return sb;
     }

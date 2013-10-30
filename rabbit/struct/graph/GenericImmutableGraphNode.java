@@ -6,7 +6,7 @@ import rabbit.struct.graph.scheme.GraphNode;
 
 import java.util.List;
 
-public class GenericImmutableGraphNode<T extends GraphNode<T>> implements GraphNode<T>
+public class GenericImmutableGraphNode<T> implements GraphNode<T>
 {
     private final List<T> children;
 

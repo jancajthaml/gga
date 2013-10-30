@@ -6,6 +6,7 @@ import java.util.Iterator;
 public final class StringUtils
 {
 
+	//Library class
     private StringUtils()
     {}
 
@@ -29,7 +30,7 @@ public final class StringUtils
         
         Object first = iterator.next();
         
-        if (!iterator.hasNext())  return Utils.toString(first);
+        if( !iterator.hasNext() )  return Utils.toString( first );
 
         StringBuilder buf = new StringBuilder( 256 );
         
@@ -37,8 +38,8 @@ public final class StringUtils
         
         while( iterator.hasNext() )
         {
-            if( separator != null )                 buf . append ( separator );
-            if( (first = iterator.next()) != null)  buf . append ( first     );
+            if( separator                 != null )  buf . append ( separator );
+            if( (first = iterator.next()) != null )  buf . append ( first     );
         }
         
         return buf . toString();
@@ -49,16 +50,15 @@ public final class StringUtils
 
     public static String join( Object[] array, String separator, int startIndex, int endIndex )
     {
-        if( array == null )     return null;
-        
+        if( array     == null ) return null;    
         if( separator == null ) separator = "";
 
-        int bufSize = (endIndex - startIndex);
+        int bufSize = endIndex - startIndex;
         
         if( bufSize <= 0 )      return "";
         
-        bufSize            *=  ((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());
-        StringBuilder buf  =   new StringBuilder(bufSize);
+        bufSize           *=  ((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());
+        StringBuilder buf  =  new StringBuilder( bufSize );
 
         for( int i = startIndex; i < endIndex; i++ )
         {
@@ -84,7 +84,7 @@ public final class StringUtils
     public static boolean startsWith( String string, String prefix )
     { return string != null && (prefix == null || string.startsWith( prefix )); }
 
-    public static String substring( String str, int start )
+    public static String substring( String str , int start )
     {
         if( str == null )  return null;
 
@@ -94,18 +94,18 @@ public final class StringUtils
         return( start > str.length() ) ? "" : str . substring( start );
     }
 
-    public static String substring( String str, int start, int end )
+    public static String substring( String str , int start , int end )
     {
         if (str == null) return null;
 
-        if( end    <  0            )  end    =  str.length() + end;
-        if( start  <  0            )  start  =  str.length() + start;
-        if( end    >  str.length() )  end    =  str.length();
-        if( start  >  end          )  return "";
-        if( start  <  0            )  start  =  0;
-        if( end    <  0            )  end    =  0;
+        if( end    <  0            )  end    =  str.length() + end   ;
+        if( start  <  0            )  start  =  str.length() + start ;
+        if( end    >  str.length() )  end    =  str.length()         ;
+        if( start  >  end          )  return ""                      ;
+        if( start  <  0            )  start  =  0                    ;
+        if( end    <  0            )  end    =  0                    ;
 
-        return str.substring(start, end);
+        return str . substring( start , end );
     }
 
     public static String left( String str, int len )

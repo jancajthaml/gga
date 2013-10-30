@@ -103,7 +103,7 @@ public abstract class ImmutableList<T> extends AbstractList<T>
     public static <T> ImmutableList<T> of( T a , T b , T c )
     { return (ImmutableList<T>) new RegularList( new Object[] {a,b,c} ); }
 
-    public static <T> ImmutableList<T> of( T ... elements )
+    public static <T> ImmutableList<T> of( T[] elements )
     {
        _not_null_argument( elements, "elements" );
     	

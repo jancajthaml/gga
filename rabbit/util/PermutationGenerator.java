@@ -132,8 +132,8 @@ public class PermutationGenerator<E extends Comparable<E>> implements Iterator<E
 		
 		System.out.println("\n####Test2\n");
 		
+		Integer[] LOW	= {2,1,3};
 		Integer[] HIGH	= {3,1,2};
-		Integer[] LOW	= {1,3,2};
 		PermutationGenerator<Integer> bounded = new PermutationGenerator<Integer>(LOW,HIGH);
 		
 		for(Integer[] i : bounded)
@@ -142,7 +142,7 @@ public class PermutationGenerator<E extends Comparable<E>> implements Iterator<E
 				System.out.print(j+" ");
 			System.out.println();
 		}
-
+/*
 		System.out.println("\n####Test3\n");
 		
 		try{ PermutationGenerator<Integer> illegal = new PermutationGenerator<Integer>(); }
@@ -166,6 +166,7 @@ public class PermutationGenerator<E extends Comparable<E>> implements Iterator<E
 			System.out.print(new String(c));
 			System.out.println();
 		}
+		*/
 	}
 	
 }
