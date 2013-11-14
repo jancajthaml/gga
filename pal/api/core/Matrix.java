@@ -1,4 +1,4 @@
-package rabbit.struct.common;
+package pal.api.core;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -113,32 +113,25 @@ public class Matrix<T>
    public void print ( int width) {
       print(new PrintWriter(System.out,true),width); }
 
-   // DecimalFormat is a little disappointing coming from Fortran or C's printf.
-   // Since it doesn't pad on the left, the elements will come out different
-   // widths.  Consequently, we'll pass the desired column width in as an
-   // argument and do the extra padding ourselves.
-
-   /** Print the matrix to the output stream.  Line the elements up in columns.
-     * Use the format object, and right justify within columns of width
-     * characters.
-     * Note that is the matrix is to be read back in, you probably will want
-     * to use a NumberFormat that is set to US Locale.
-   @param output the output stream.
-   @param format A formatting object to format the matrix elements 
-   @param width  Column width.
-   @see java.text.DecimalFormat#setDecimalFormatSymbols
-   */
-
    public void print (PrintWriter output,  int width) {
-      output.println();  // start on new line.
+      output.println();
       for (int i = 0; i < n; i++) {
          for (int j = 0; j < n; j++) {
-            String s = " "+((int)(A[i][j])); // format the number
+            String s = " "+((int)(A[i][j]));
             output.print(s);
          }
          output.println();
       }
-      output.println();   // end with blank line.
+      output.println();
+   }
+
+   public int[][] toArray()
+   {
+	   int[][] result = new int[n][n];
+	   for(int i=0; i<A.length; i++)
+		   for(int j=0; j<A.length; j++)
+			   result[i][j]=(int)A[i][j];
+	   return result;
    }
 
 
